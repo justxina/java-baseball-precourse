@@ -1,8 +1,10 @@
 package baseball.model;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameTest {
 
@@ -15,19 +17,13 @@ public class GameTest {
     }
 
     @Test
-    void 게임_시작() {
-        assertNotEquals(game.getStrikeZone().size(), 0);
-    }
-
-    @Test
+    @DisplayName("스트라이크 존이 게임의 룰에 알맞게 생성되었는가")
     void 스트라이크존_생성() {
-        assertEquals(game.getStrikeZone().size(), Game.STRIKE_ZONE_LENGTH);
+        assertThat(game.getStrikeZone().size()).isEqualTo(Game.STRIKE_ZONE_LENGTH);
 
         for (Integer integer : game.getStrikeZone()) {
-            assertTrue(
-                integer >= Game.STRIKE_ZONE_MINIMUM
-                    && integer <= Game.STRIKE_ZONE_MAXIMUM
-            );
+            assertThat(integer).isGreaterThanOrEqualTo(Game.STRIKE_ZONE_MINIMUM);
+            assertThat(integer).isLessThanOrEqualTo(Game.STRIKE_ZONE_MAXIMUM);
         }
     }
 

@@ -3,9 +3,10 @@ package baseball.model;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RefereeTest {
 
@@ -18,27 +19,31 @@ public class RefereeTest {
     }
 
     @Test
+    @DisplayName("볼과 스트라이크가 섞인 콜사인을 알맞게 주는가")
     void 콜사인_볼앤스트라이크() {
         Balls balls = new Balls("159");
-        assertEquals(this.referee.callSign(this.strikeZone, balls), "1볼 1스트라이크");
+        assertThat(this.referee.callSign(this.strikeZone, balls)).isEqualTo("1볼 1스트라이크");
     }
 
     @Test
+    @DisplayName("스트라이크만 있는 콜사인을 알맞게 주는가")
     void 콜사인_스트라이크() {
         Balls balls = new Balls("139");
-        assertEquals(this.referee.callSign(this.strikeZone, balls), "2스트라이크");
+        assertThat(this.referee.callSign(this.strikeZone, balls)).isEqualTo("2스트라이크");
     }
 
     @Test
+    @DisplayName("볼만 있는 콜사인을 알맞게 주는가")
     void 콜사인_볼() {
         Balls balls = new Balls("351");
-        assertEquals(this.referee.callSign(this.strikeZone, balls), "3볼");
+        assertThat(this.referee.callSign(this.strikeZone, balls)).isEqualTo("3볼");
     }
 
     @Test
+    @DisplayName("스트라이크와 볼 모두 없는 콜사인을 알맞게 주는가")
     void 콜사인_낫싱() {
         Balls balls = new Balls("248");
-        assertEquals(this.referee.callSign(this.strikeZone, balls), "낫싱");
+        assertThat(this.referee.callSign(this.strikeZone, balls)).isEqualTo("낫싱");
     }
 
 }
