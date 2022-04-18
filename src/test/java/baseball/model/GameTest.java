@@ -12,6 +12,7 @@ public class GameTest {
     @BeforeEach
     public void beforeEach() {
         game = new Game();
+        game.start();
     }
 
     @Test

@@ -3,6 +3,7 @@ package baseball.model;
 import static camp.nextstep.edu.missionutils.Randoms.pickNumberInRange;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class Game {
 
@@ -10,11 +11,12 @@ public class Game {
     static public Integer STRIKE_ZONE_MINIMUM = 1;
     static public Integer STRIKE_ZONE_MAXIMUM = 9;
 
-    private HashSet<Integer> strikeZone;
+    private LinkedHashSet<Integer> strikeZone;
+    private Referee referee;
 
 
     public Game() {
-        this.start();
+        this.referee = new Referee();
     }
 
 
@@ -22,12 +24,17 @@ public class Game {
         this.generateStrikeZone();
     }
 
-    public HashSet<Integer> getStrikeZone() {
+    public LinkedHashSet<Integer> getStrikeZone() {
         return this.strikeZone;
     }
 
+    public String inning(LinkedHashSet<Integer> balls) {
+        return this.referee.callSign(this.strikeZone, balls);
+    }
+
+
     private void generateStrikeZone() {
-        this.strikeZone = new HashSet<>();
+        this.strikeZone = new LinkedHashSet<>();
         while (this.strikeZone.size() < STRIKE_ZONE_LENGTH) {
             this.strikeZone.add(pickNumberInRange(STRIKE_ZONE_MINIMUM, STRIKE_ZONE_MAXIMUM));
         }
