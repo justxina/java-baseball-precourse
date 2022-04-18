@@ -19,19 +19,26 @@ public class GameController {
 
     }
 
-    public void inning() {
+    public void innings() {
         while (true) {
-            System.out.println("1~9 사이의 서로 다른 수로 이루어진 3자리의 수를 입력하여, 공을 던져요.");
-            String params = Console.readLine();
-            Balls balls = new Balls(params);
+            String callSign = this.inning();
+            boolean isAllStrike = callSign.equals(Game.STRIKE_ZONE_LENGTH.toString() + BallSign.STRIKE.getName());
 
-            String callSign = this.game.inning(balls);
-            System.out.println(callSign);
-
-            if (callSign.equals(Game.STRIKE_ZONE_LENGTH.toString() + BallSign.STRIKE.getName())) {
+            if (isAllStrike) {
                 break;
             }
         }
+    }
+
+    private String inning() {
+        System.out.println("1~9 사이의 서로 다른 수로 이루어진 3자리의 수를 입력하여, 공을 던져요.");
+
+        String params = Console.readLine();
+        Balls balls = new Balls(params);
+        String callSign = this.game.inning(balls);
+
+        System.out.println(callSign);
+        return callSign;
     }
 
 
