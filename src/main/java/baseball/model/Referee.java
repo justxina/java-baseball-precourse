@@ -8,26 +8,25 @@ import java.util.Objects;
 
 public class Referee {
 
-    public Referee() {
-    }
+    public Referee() {}
 
     public String callSign(
         LinkedHashSet<Integer> strikeZone,
-        LinkedHashSet<Integer> balls
+        Balls balls
     ) {
-        List<Integer> strikeZoneList = new ArrayList<>(strikeZone);
-        List<Integer> ballList = new ArrayList<>(balls);
+        HashMap<BallSign, Integer> calls = this.call(
+            new ArrayList<>(strikeZone),
+            balls.getBalls()
+        );
 
-        HashMap<BallSign, Integer> judgement = this.judge(strikeZoneList, ballList);
-
-        return this.getCallSignByJudgement(
-            judgement.get(BallSign.STRIKE),
-            judgement.get(BallSign.BALL),
-            judgement.get(BallSign.FOUL)
+        return this.getCallSignByCalls(
+            calls.get(BallSign.STRIKE),
+            calls.get(BallSign.BALL),
+            calls.get(BallSign.FOUL)
         );
     }
 
-    private String getCallSignByJudgement(Integer strikeCount, Integer ballCount,
+    private String getCallSignByCalls(Integer strikeCount, Integer ballCount,
         Integer foulCount) {
         if (Objects.equals(foulCount, Game.STRIKE_ZONE_LENGTH)) {
             return "낫싱";
@@ -41,20 +40,20 @@ public class Referee {
         return ballCount + BallSign.BALL.getName() + " " + strikeCount + BallSign.STRIKE.getName();
     }
 
-    private HashMap<BallSign, Integer> judge(List<Integer> strikeZone, List<Integer> balls) {
-        HashMap<BallSign, Integer> judgement = new HashMap<BallSign, Integer>();
+    private HashMap<BallSign, Integer> call(List<Integer> strikeZone, List<Integer> balls) {
+        HashMap<BallSign, Integer> call = new HashMap<BallSign, Integer>();
 
         for (BallSign sign : BallSign.values()) {
-            judgement.put(sign, 0);
+            call.put(sign, 0);
         }
 
         for (int i = 0; i < balls.size(); i++) {
             Ball ball = new Ball(i, balls.get(i));
             BallSign sign = ball.getSign(strikeZone);
-            judgement.put(sign, judgement.get(sign) + 1);
+            call.put(sign, call.get(sign) + 1);
         }
 
-        return judgement;
+        return call;
     }
 
 }

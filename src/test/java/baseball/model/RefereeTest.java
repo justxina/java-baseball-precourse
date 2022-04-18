@@ -19,26 +19,25 @@ public class RefereeTest {
 
     @Test
     void 콜사인_볼앤스트라이크() {
-        LinkedHashSet<Integer> balls = new LinkedHashSet<>(Arrays.asList(1, 5, 9));
-
+        Balls balls = new Balls("159");
         assertEquals(this.referee.callSign(this.strikeZone, balls), "1볼 1스트라이크");
     }
 
     @Test
     void 콜사인_스트라이크() {
-        LinkedHashSet<Integer> balls = new LinkedHashSet<>(Arrays.asList(1, 3, 9));
+        Balls balls = new Balls("139");
         assertEquals(this.referee.callSign(this.strikeZone, balls), "2스트라이크");
     }
 
     @Test
     void 콜사인_볼() {
-        LinkedHashSet<Integer> balls = new LinkedHashSet<>(Arrays.asList(3, 5, 1));
+        Balls balls = new Balls("351");
         assertEquals(this.referee.callSign(this.strikeZone, balls), "3볼");
     }
 
     @Test
     void 콜사인_낫싱() {
-        LinkedHashSet<Integer> balls = new LinkedHashSet<>(Arrays.asList(2, 4, 8));
+        Balls balls = new Balls("248");
         assertEquals(this.referee.callSign(this.strikeZone, balls), "낫싱");
     }
 

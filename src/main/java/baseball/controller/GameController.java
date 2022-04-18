@@ -1,9 +1,9 @@
 package baseball.controller;
 
 import baseball.model.BallSign;
+import baseball.model.Balls;
 import baseball.model.Game;
 import camp.nextstep.edu.missionutils.Console;
-import java.util.LinkedHashSet;
 
 public class GameController {
 
@@ -21,10 +21,9 @@ public class GameController {
 
     public void inning() {
         while (true) {
-            System.out.println("1~9 사이의 서로 다른 3자리의 임의의 수를 입력하여, 공을 던져요.");
+            System.out.println("1~9 사이의 서로 다른 수로 이루어진 3자리의 수를 입력하여, 공을 던져요.");
             String params = Console.readLine();
-            LinkedHashSet<Integer> balls = this.convert(params);
-            this.validate(balls);
+            Balls balls = new Balls(params);
 
             String callSign = this.game.inning(balls);
             System.out.println(callSign);
@@ -35,32 +34,6 @@ public class GameController {
         }
     }
 
-    private LinkedHashSet<Integer> convert(String params) {
-        LinkedHashSet<Integer> balls = new LinkedHashSet<>();
-        for (String str: params.split("")) {
-            balls.add(this.convertStringToInt(str));
-        }
-        return balls;
-    }
 
-    private Integer convertStringToInt(String ballStr) {
-        try {
-            return Integer.parseInt(ballStr);
-
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void validate(LinkedHashSet<Integer> balls) {
-        for (int ball: balls) {
-            this.checkRange(ball);
-        }
-    }
-
-    private void checkRange(int ball) {
-        if (ball < Game.STRIKE_ZONE_MINIMUM || ball > Game.STRIKE_ZONE_MAXIMUM)
-            throw new IllegalArgumentException();
-    }
 
 }
