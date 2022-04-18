@@ -2,7 +2,6 @@ package baseball.model;
 
 import static camp.nextstep.edu.missionutils.Randoms.pickNumberInRange;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 public class Game {
@@ -31,7 +30,6 @@ public class Game {
     public String inning(LinkedHashSet<Integer> balls) {
         return this.referee.callSign(this.strikeZone, balls);
     }
-
 
     private void generateStrikeZone() {
         this.strikeZone = new LinkedHashSet<>();

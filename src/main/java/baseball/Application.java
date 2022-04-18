@@ -1,19 +1,23 @@
 package baseball;
 
+import baseball.controller.GameController;
 import baseball.model.Game;
-import java.util.LinkedHashSet;
+import camp.nextstep.edu.missionutils.Console;
 
 public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현
+
         Game game = new Game();
-        game.start();
+        GameController gameController = new GameController(game);
 
-        LinkedHashSet<Integer> balls = new LinkedHashSet<Integer>();
-        balls.add(1);
-        balls.add(3);
-        balls.add(5);
+        gameController.start();
 
-        game.inning(balls);
+        while (true) {
+            gameController.startInning();
+            String balls = Console.readLine();
+            gameController.endInning(balls);
+            break;
+        }
     }
 }
